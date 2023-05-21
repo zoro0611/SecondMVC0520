@@ -5,11 +5,11 @@ using System.Linq.Expressions;
 
 namespace SecondMVC0520.Repos
 {
-    public class HomeRepository<T> : IRepository<T> where T : BaseEntity
+    public class PrivacyRepos<T> : IPrivacyRepository<T> where T : BaseEntity
     {
-        protected readonly SecondMVC0520_dbContext Dbcontext;
 
-        public HomeRepository(SecondMVC0520_dbContext context)
+        protected readonly OneMoreDbContext Dbcontext;
+        public PrivacyRepos(OneMoreDbContext context)
         {
             Dbcontext = context;
         }
@@ -135,5 +135,4 @@ namespace SecondMVC0520.Repos
             return Dbcontext.Set<T>().Where(expression);
         }
     }
-
 }

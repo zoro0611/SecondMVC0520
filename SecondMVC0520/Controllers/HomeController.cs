@@ -12,11 +12,14 @@ namespace SecondMVC0520.Controllers
         //注入HomeServices
         private readonly ILogger<HomeController> _logger;
         private readonly HomeServices _homeServices;
+        private readonly PrivacyServices _privacyServices;
 
-        public HomeController(ILogger<HomeController> logger, HomeServices homeServices)
+        public HomeController(ILogger<HomeController> logger, HomeServices homeServices, PrivacyServices privacyServices)
+        //public HomeController(ILogger<HomeController> logger, HomeServices homeServices)
         {
             _logger = logger;
             _homeServices = homeServices;
+            _privacyServices = privacyServices;
         }
 
         public IActionResult Index()
@@ -28,7 +31,8 @@ namespace SecondMVC0520.Controllers
 
         public IActionResult Privacy()
         {
-            return View();
+            var list2 = _privacyServices.GetNewBookInfos();
+            return View(list2);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

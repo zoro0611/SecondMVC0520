@@ -17,8 +17,7 @@ builder.Services.AddControllersWithViews();
 
 //開發環境使用user secret取得連線字串，若正式環境使用azure app service的user secret，則需在azure app service取得connecion string
 builder.Configuration["ConnectionStrings:SecondMvcConnection"] = builder.Configuration["ConnectionStrings:SecondMvcConnection"];
-
-
+builder.Configuration["ConnectionStrings:OneMoreConnection"] = builder.Configuration["ConnectionStrings:OneMoreConnection"];
 
 
 
@@ -26,9 +25,16 @@ builder.Services.AddDbContext<SecondMVC0520_dbContext>(
     options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("SecondMvcConnection"))
 );
+builder.Services.AddDbContext<OneMoreDbContext>(
+    options =>
+        options.UseSqlServer(builder.Configuration.GetConnectionString("OneMoreConnection"))
+
+);
 
 builder.Services.AddScoped(typeof (IRepository<>), typeof(HomeRepository<>));
+builder.Services.AddScoped(typeof(IPrivacyRepository<>), typeof(PrivacyRepos<>));
 builder.Services.AddScoped<HomeServices>();
+builder.Services.AddScoped<PrivacyServices>();
 
 var app = builder.Build();
 
