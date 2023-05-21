@@ -1,7 +1,22 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using SecondMVC0520.DBModels;
+using SecondMVC0520.Repos;
+using SecondMVC0520.Service;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<SecondMVC0520_dbContext>(
+    options =>
+        options.UseSqlServer(builder.Configuration.GetConnectionString("SecondMvcConnection"))
+);
+
+builder.Services.AddScoped(typeof (IRepository<>), typeof(HomeRepository<>));
+builder.Services.AddScoped<HomeServices>();
 
 var app = builder.Build();
 
